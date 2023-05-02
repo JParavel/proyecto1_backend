@@ -4,6 +4,7 @@ export async function createRestaurant(req, res) {
 	try {
 		const restaurantData = req.body;
 		restaurantData.active = true;
+		restaurantData.popularity = 0;
 		const document = await restaurantModel.create(restaurantData);
 		res.status(201).json(document);
 	} catch (error) {
@@ -32,7 +33,7 @@ export async function searchRestaurant(req, res) {
 			active: true,
 		};
 
-		const documents = await restaurantModel.find(filter);
+		const documents = await restaurantModel.find(filter).sort({ popularity: -1 });
 		documents.length > 0 ? res.status(200).json(documents) : res.sendStatus(404);
 	} catch (error) {
 		res.status(400).json(error.message);

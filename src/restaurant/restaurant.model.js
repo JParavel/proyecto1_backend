@@ -13,6 +13,7 @@ const restaurantSchema = new Schema(
 				message: 'there must be at least 1 category',
 			},
 		},
+		popularity: { type: Number },
 		active: { type: Boolean },
 	},
 	{
